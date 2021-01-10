@@ -8,8 +8,12 @@
   <ul>
     <ToDoItem v-for="todo in todos" 
       :key="todo._id" 
+      :_id="todo._id"
+      :activeId="activeId"
       :content="todo.content"
       :isCompleted="todo.isCompleted"
+      @openInputEdit="openInputEdit"
+      @removeItem="removeItem"
     >
     </ToDoItem>
   </ul>
@@ -27,6 +31,7 @@ export default {
     return {
       name: "Quynh",
       newTodo: "",
+      activeId: "9897ecfd-9244-4c53-af2f-9fd1c4db2d48",
       todos: [{
         _id: "1789db9a-2a3b-453e-87e4-a6749c5f2f7e",
         content: "Learn English",
@@ -48,8 +53,6 @@ export default {
   },
   methods: {
     addItem() {
-      console.log("add");
-
       const id = shortid.generate();
       const newItem = {
         _id: id,
@@ -58,7 +61,15 @@ export default {
       }
       this.todos.push(newItem);
     },
-  }
+
+    openInputEdit(id) {
+      this.activeId = id
+    },
+
+    removeItem(id) {
+      this.todos = this.todos.filter(item => item._id !== id)
+    }
+  },
 }
 </script>
 
