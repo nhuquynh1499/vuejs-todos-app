@@ -1,18 +1,16 @@
 <template>
     <li :class="{ completed: isCompleted }">
         <CheckBox 
-            :_id="_id"
-            :isCompleted="isCompleted"
+            :todo="todo"
             @checkDone="checkDone"
         ></CheckBox>
         <MainContent 
-            :_id="_id"
-            :content="content"
+            :todo="todo"
             :activeId="activeId"
-            :isCompleted="isCompleted"
+            @updateItem="updateItem"
         ></MainContent>
-        <img src="../assets/edit.svg" @click="openInputEdit(_id)"/>
-        <img src="../assets/delete.svg" @click="removeItem(_id)"/>
+        <img src="../assets/edit.svg" @click="openInputEdit(todo._id)"/>
+        <img src="../assets/delete.svg" @click="removeItem(todo._id)"/>
     </li>   
 </template>
 
@@ -21,7 +19,7 @@ import MainContent from './MainContent.vue';
 import CheckBox from './CheckBox.vue';
 
 export default {
-    props: ['_id', 'content', 'isCompleted', 'activeId'],
+    props: ['todo', 'activeId'],
 
     components: {
         MainContent,
@@ -39,6 +37,10 @@ export default {
 
         checkDone(_id) {
             this.$emit('checkDone', _id)
+        },
+
+        updateItem(_id, value) {
+            this.$emit('updateItem', _id, value)
         }
     }
 }

@@ -1,12 +1,13 @@
 <template>
-    <div :class="{ checked: isCompleted, container: true }">
-        <span class="checkmark" @click="checkDone(_id)"></span>
+    <div :class="{ checked: todo.isCompleted, container: true }">
+        <span class="checkmark" @click="checkDone(todo._id)"></span>
     </div>
 </template>
 
 <script>
 export default {
-    props: ['_id', 'isCompleted'],
+    name: 'checkbox-complete',
+    props: ['todo'],
 
     methods: {
         checkDone(_id) {
@@ -59,10 +60,10 @@ export default {
     .container.checked {
         .checkmark{
             background:#2196F3;
-        }
 
-        .checkmark:after{
-            display:block;
+            &::after{
+                display:block;
+            }
         }
     }
 </style>
