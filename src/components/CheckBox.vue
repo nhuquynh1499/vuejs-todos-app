@@ -6,7 +6,6 @@
 
 <script>
 export default {
-    name: 'checkbox-complete',
     props: ['todo'],
 
     methods: {
@@ -23,18 +22,19 @@ export default {
         cursor: pointer;
         font-size: 30px;
         user-select: none;
-        width: 30px;
-        height: 30px;
+        width: 20px;
+        height: 20px;
 
         .checkmark{
             position:absolute;
             top:0;
             left:0;
-            width:30px;
-            height:30px;
-            background:#eee;
+            width: 20px;
+            height: 20px;
+            border: 1px solid #ccc;
+            background:#fff;
             border-radius:3px;
-            border-radius: 50%;
+            border-radius: 15%;
 
             &::after{
                 content:"";
@@ -52,7 +52,7 @@ export default {
 
         &:hover {
             .checkmark {
-                background:#ccc;
+                background:#eee;
             }
         }
     }
@@ -60,6 +60,8 @@ export default {
     .container.checked {
         .checkmark{
             background:#2196F3;
+            border: 1px solid #2196F3;
+
 
             &::after{
                 display:block;

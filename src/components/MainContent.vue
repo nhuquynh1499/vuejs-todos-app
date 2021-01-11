@@ -3,7 +3,7 @@
         <span :class="{ completed: todo.isCompleted }"> {{ todo.content }} </span>
 
         <div :class="{ actived: todo._id === activeId, inputUpdate: true}">
-            <input type="text" ref="inputUpdate" :value="todo.content" @keyup.enter="updateItem(todo._id)"/>
+            <input type="text" v-model="valueInputUpdate" @keyup.enter="updateItem(todo._id)"/>
             <button @click="updateItem(todo._id)">Ok</button>
         </div>
     </div>
@@ -12,11 +12,15 @@
 <script>
 export default {
     props: ['todo', 'activeId'],
+    data() {
+        return {
+            valueInputUpdate: this.todo.content,
+        }
+    },
 
     methods: {
         updateItem(id) {
-            const value = this.$refs.inputUpdate.value
-            this.$emit('updateItem', id, value);
+            this.$emit('updateItem', id, this.valueInputUpdate);
         }
     }   
 }

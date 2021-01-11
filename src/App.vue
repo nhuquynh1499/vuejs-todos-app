@@ -1,11 +1,11 @@
 <template>
-  <div class="">
-    <input type="text" v-model="newTodo" @keyup.enter="addItem"/> 
-    <button @click="addItem">OK</button>
-  </div>
+<div id="app">
+  <h1 class="title">todo list</h1>
+
+  <add-new-task @addItem="addItem"></add-new-task>
 
   <ul>
-    <ToDoItem v-for="todo in todos" 
+    <todo-item v-for="todo in todos" 
       :key="todo._id" 
       :activeId="activeId"
       :todo="todo"
@@ -13,66 +13,50 @@
       @removeItem="removeItem"
       @checkDone="checkDone"
       @updateItem="updateItem"
-
     >
-    </ToDoItem>
+    </todo-item>
   </ul>
+</div>
 </template>
 
 <script>
-import ToDoItem from './components/ToDoItem.vue';
+import TodoItem from "./components/TodoItem";
+import AddNewTask from "./components/AddNewTask";
+
 const shortid = require('shortid');
 
 export default {
   components: {
-    ToDoItem
+    TodoItem,
+    AddNewTask
   },
   data() {
     return {
-      name: "Quynh",
-      newTodo: "",
       activeId: "",
-      todos: []
-      // todos: [{
-      //   _id: "1789db9a-2a3b-453e-87e4-a6749c5f2f7e",
-      //   content: "Learn English",
-      //   isCompleted: true,
-      // }, {
-      //   _id: "eb5332b1-d9f1-4af2-8118-e71eb909b350",
-      //   content: "Go to market",
-      //   isCompleted: true,
-      // }, {
-      //   _id: "97fe55b0-15b5-4262-99b1-588c77c10aa1",
-      //   content: "Buy something",
-      //   isCompleted: false,
-      // }, {
-      //   _id: "9897ecfd-9244-4c53-af2f-9fd1c4db2d48",
-      //   content: "Cook a dinner",
-      //   isCompleted: false,
-      // }]
+      todos: [],
     }
   },
   
   mounted() {
     if (localStorage.todos) {
-      this.todos = JSON.parse(localStorage.getItem("todos"));
+      this.todos = JSON.parse(localStorage.getItem("todos")).sort((a, b) => Number(a.isCompleted) - Number(b.isCompleted));
     }
   },
 
   updated() {
     localStorage.setItem("todos", JSON.stringify(this.todos))
+    this.todos.sort((a, b) => Number(a.isCompleted) - Number(b.isCompleted));
   },
 
   methods: {
-    addItem() {
+    addItem(value) {
       const id = shortid.generate();
       const newItem = {
         _id: id,
-        content: this.newTodo.trim(),
+        content: value.trim(),
         isCompleted: false
       }
       this.todos.push(newItem);
-      this.newTodo = "";
     },
 
     openInputEdit(id) {
@@ -84,15 +68,20 @@ export default {
     },
 
     checkDone(id) {
-      this.todos.map(item => {
-        item.isCompleted = (item._id === id ? !item.isCompleted : item.isCompleted)
+      this.todos = this.todos.map(item => {
+        if (item._id === id) {
+          item.isCompleted = !item.isCompleted
+        }
+        return item;
       })
-      localStorage.setItem("todos", JSON.stringify(this.todos))
     },
 
     updateItem(id, value) {
-      this.todos.map(item => {
-        item.content = (item._id === id ? value : item.content)
+      this.todos = this.todos.map(item => {
+        if (item._id === id) {
+          item.content = value;
+        }
+        return item;
       });
       this.activeId = "";
     }
@@ -100,7 +89,27 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Montserrat";
+}
+
+#app {
+  max-width: 70%;
+  margin: auto;
+
+  .title {
+    text-transform: uppercase;
+    text-align: center;
+  }
+}
+
 ul {
   list-style-type: none;
 }

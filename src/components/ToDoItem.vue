@@ -1,29 +1,33 @@
 <template>
     <li :class="{ completed: isCompleted }">
-        <CheckBox 
+        <checkbox 
             :todo="todo"
             @checkDone="checkDone"
-        ></CheckBox>
-        <MainContent 
+        ></checkbox>
+        <main-content 
             :todo="todo"
             :activeId="activeId"
             @updateItem="updateItem"
-        ></MainContent>
+            class="main-content"
+        ></main-content>
         <img src="../assets/edit.svg" @click="openInputEdit(todo._id)"/>
         <img src="../assets/delete.svg" @click="removeItem(todo._id)"/>
     </li>   
 </template>
 
 <script>
-import MainContent from './MainContent.vue';
-import CheckBox from './CheckBox.vue';
+import MainContent from "./MainContent";
+import Checkbox from "./Checkbox";
 
 export default {
-    props: ['todo', 'activeId'],
+    props: {
+        todo: Array, 
+        activeId: String
+    },
 
     components: {
         MainContent,
-        CheckBox
+        Checkbox
     },
 
     methods: {
@@ -51,11 +55,18 @@ export default {
         display: flex;
         align-items: center;
         justify-content: space-between;
+        padding: 10px 0px;
         img {
-            width: 24px;
+            width: 20px;
+            margin-left: 10px;
+        }
+
+        .main-content {
+            flex-grow: 2;
+            margin-left: 10px;
         }
     }
-    .completed {
+    li.completed {
         span {
             text-decoration: line-through;
             color: #b2b2b2;
