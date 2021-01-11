@@ -2,7 +2,6 @@
   <div class="">
     <input type="text" v-model="newTodo"/> 
     <button @click="addItem">OK</button>
-
   </div>
 
   <ul>
@@ -14,6 +13,7 @@
       :isCompleted="todo.isCompleted"
       @openInputEdit="openInputEdit"
       @removeItem="removeItem"
+      @checkDone="checkDone"
     >
     </ToDoItem>
   </ul>
@@ -31,7 +31,7 @@ export default {
     return {
       name: "Quynh",
       newTodo: "",
-      activeId: "9897ecfd-9244-4c53-af2f-9fd1c4db2d48",
+      activeId: "",
       todos: [{
         _id: "1789db9a-2a3b-453e-87e4-a6749c5f2f7e",
         content: "Learn English",
@@ -68,6 +68,12 @@ export default {
 
     removeItem(id) {
       this.todos = this.todos.filter(item => item._id !== id)
+    },
+
+    checkDone(id) {
+      this.todos.map(item => {
+        item.isCompleted = (item._id === id ? !item.isCompleted : item.isCompleted)
+      })
     }
   },
 }
