@@ -17,14 +17,14 @@
     </todo-item>
   </ul>
 
-  <!-- <Summary :todos="todos"></Summary> -->
+  <Summary :todos="todos"></Summary>
 </div>
 </template>
 
 <script>
 import TodoItem from "./components/TodoItem";
 import AddNewTask from "./components/AddNewTask";
-// import Summary from './components/Summary';
+import Summary from './components/Summary';
 
 
 const shortid = require('shortid');
@@ -33,7 +33,7 @@ export default {
   components: {
     TodoItem,
     AddNewTask,
-    // Summary
+    Summary
   },
   data() {
     return {
