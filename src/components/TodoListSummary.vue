@@ -1,5 +1,6 @@
 <template>
 <div class="todo-list-summary">
+    <p>All: {{ todos.length }}</p>
     <p>Doing: {{ doingList.length }}</p>
     <p>Completed: {{ completedList.length }}</p>
 </div>
@@ -18,6 +19,11 @@ export default {
         }
     },
 
+    updated() {
+        this.doingList =  this.todos.filter((item) => !item.isCompleted),
+        this.completedList = this.todos.filter((item) => item.isCompleted)
+    },
+
     watch: {
         todos: function() {
             this.doingList =  this.todos.filter((item) => !item.isCompleted),
@@ -31,5 +37,7 @@ export default {
     .todo-list-summary {
         display: flex;
         justify-content: space-evenly;
+        margin-top: 50px;
+        margin-bottom: 20px;
     }
 </style>

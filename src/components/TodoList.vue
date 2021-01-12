@@ -1,5 +1,4 @@
 <template>
-<div id="app">
   <h1 class="title">todo list</h1>
 
   <todo-list-input-add @addItem="addItem"></todo-list-input-add>
@@ -18,7 +17,6 @@
   </ul>
 
   <todo-list-summary :todos="todos"></todo-list-summary>
-</div>
 </template>
 
 <script>
@@ -102,6 +100,8 @@ export default {
   .title {
     text-transform: uppercase;
     text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
   }
 }
 
