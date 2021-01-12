@@ -19,7 +19,7 @@ export default {
         }
     },
 
-    updated() {
+    beforeUpdate() {
         this.doingList =  this.todos.filter((item) => !item.isCompleted),
         this.completedList = this.todos.filter((item) => item.isCompleted)
     },
