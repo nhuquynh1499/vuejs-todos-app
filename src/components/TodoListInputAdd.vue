@@ -1,12 +1,19 @@
 <template>
     <div class="addNewTask">
-        <input placeholder="Enter a new task" type="text" v-model="newTodo" @keyup.enter="addItem(newTodo)"/> 
+        <input 
+            placeholder="Enter a new task" 
+            type="text" 
+            v-model="newTodo" 
+            @keyup.enter="addItem(newTodo)"
+        /> 
         <!-- <button @click="addItem">OK</button> -->
     </div>
 </template>
 
 <script>
 export default {
+    name: "TodoListInputAdd",
+
     data() {
         return {
             newTodo: "",

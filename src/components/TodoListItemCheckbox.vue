@@ -1,12 +1,18 @@
 <template>
     <div :class="{ checked: todo.isCompleted, container: true }">
-        <span class="checkmark" @click="checkDone(todo._id)"></span>
+        <span 
+            class="checkmark" 
+            @click="checkDone(todo._id)"
+        ></span>
     </div>
 </template>
 
 <script>
 export default {
-    props: ['todo'],
+    name: "TodoListItemCheckbox",
+    props: {
+        todo: Object, 
+    },
 
     methods: {
         checkDone(_id) {

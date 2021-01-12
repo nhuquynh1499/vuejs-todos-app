@@ -1,5 +1,5 @@
 <template>
-<div class="summary">
+<div class="todo-list-summary">
     <p>Doing: {{ doingList.length }}</p>
     <p>Completed: {{ completedList.length }}</p>
 </div>
@@ -7,7 +7,10 @@
 
 <script>
 export default {
-    props: ["todos"],
+    name: "TodoListSummary",
+    props: {
+        todos: Array, 
+    },
     data() {
         return {
             doingList: this.todos.filter((item) => !item.isCompleted),
@@ -25,7 +28,7 @@ export default {
 </script>
 
 <style scoped>
-    .summary {
+    .todo-list-summary {
         display: flex;
         justify-content: space-evenly;
     }

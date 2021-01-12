@@ -1,17 +1,25 @@
 <template>
-    <div class="mainContent">
-        <span :class="{ completed: todo.isCompleted }"> {{ todo.content }} </span>
+    <div class="todo-list-item-mainContent">
+        <span v-bind:class="{ completed: todo.isCompleted }"> {{ todo.content }} </span>
 
-        <div :class="{ actived: todo._id === activeId, inputUpdate: true}">
-            <input type="text" v-model="valueInputUpdate" @keyup.enter="updateItem(todo._id)"/>
-            <button @click="updateItem(todo._id)">Ok</button>
+        <div v-bind:class="{ actived: todo._id === activeId, inputUpdate: true}">
+            <input 
+                type="text" 
+                v-model="valueInputUpdate" 
+                v-on:keyup.enter="updateItem(todo._id)"/>
+            <button v-on:click="updateItem(todo._id)">Ok</button>
         </div>
     </div>
 </template>
 
 <script>
 export default {
-    props: ['todo', 'activeId'],
+    name: "TodoListItemMainContent",
+    props: {
+        todo: Object, 
+        activeId: String
+    },
+
     data() {
         return {
             valueInputUpdate: this.todo.content,
@@ -27,7 +35,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-    .mainContent {
+    .todo-list-item-mainContent {
         position: relative;
 
         .inputUpdate {

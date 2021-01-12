@@ -1,33 +1,41 @@
 <template>
-    <li :class="{ completed: isCompleted }">
-        <checkbox 
+    <li :class="{ completed: todo.isCompleted }">
+        <todo-list-item-checkbox 
             :todo="todo"
             @checkDone="checkDone"
-        ></checkbox>
-        <main-content 
+        ></todo-list-item-checkbox>
+        <todo-list-item-main-content 
             :todo="todo"
             :activeId="activeId"
             @updateItem="updateItem"
             class="main-content"
-        ></main-content>
-        <img src="../assets/edit.svg" @click="openInputEdit(todo._id)"/>
-        <img src="../assets/delete.svg" @click="removeItem(todo._id)"/>
+        ></todo-list-item-main-content>
+        <img 
+            src="../assets/edit.svg" 
+            @click="openInputEdit(todo._id)"
+        />
+        <img 
+            src="../assets/delete.svg" 
+            @click="removeItem(todo._id)"
+        />
     </li>   
 </template>
 
 <script>
-import MainContent from "./MainContent";
-import Checkbox from "./Checkbox";
+import TodoListItemMainContent from "./TodoListItemMainContent";
+import TodoListItemCheckbox from "./TodoListItemCheckbox";
 
 export default {
+    name: "TodoListItem",
+
     props: {
-        todo: Array, 
+        todo: Object, 
         activeId: String
     },
 
     components: {
-        MainContent,
-        Checkbox
+        TodoListItemMainContent,
+        TodoListItemCheckbox
     },
 
     methods: {
