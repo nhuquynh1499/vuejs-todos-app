@@ -67,6 +67,7 @@ export default {
         img {
             width: 20px;
             margin-left: 10px;
+            cursor: pointer;
         }
 
         .main-content {
