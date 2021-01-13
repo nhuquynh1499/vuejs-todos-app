@@ -4,7 +4,6 @@
         <todo-list-item-main-content 
             :todo="todo"
             :activeId="activeId"
-            @updateItem="updateItem"
             class="main-content"
         ></todo-list-item-main-content>
         <img 
@@ -26,7 +25,7 @@ export default {
     name: "TodoListItem",
 
     props: {
-        todo: Object, 
+        todo: Object,
         activeId: String
     },
 
@@ -37,15 +36,11 @@ export default {
 
     methods: {
         openInputEdit(_id) {
-            this.$emit('openInputEdit', _id)
+            this.$store.commit('setActiveId', _id)
         },
 
         removeItem(_id) {
-            this.$emit('removeItem', _id)
-        },
-
-        updateItem(_id, value) {
-            this.$emit('updateItem', _id, value)
+            this.$store.commit('removeItem', _id)
         }
     }
 }

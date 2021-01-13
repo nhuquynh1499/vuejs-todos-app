@@ -6,8 +6,8 @@
             <input 
                 type="text" 
                 v-model="valueInputUpdate" 
-                v-on:keyup.enter="updateItem(todo._id)"/>
-            <button v-on:click="updateItem(todo._id)">Ok</button>
+                v-on:keyup.enter="updateItem(todo._id, valueInputUpdate)"/>
+            <button v-on:click="updateItem(todo._id, valueInputUpdate)">Ok</button>
         </div>
     </div>
 </template>
@@ -27,8 +27,11 @@ export default {
     },
 
     methods: {
-        updateItem(id) {
-            this.$emit('updateItem', id, this.valueInputUpdate);
+        updateItem(_id, value) {
+            this.$store.commit('updateItem', {
+                _id, 
+                content: value
+            })
         }
     }   
 }
@@ -54,5 +57,4 @@ export default {
             color: #b2b2b2;
         }
     }
-
 </style>

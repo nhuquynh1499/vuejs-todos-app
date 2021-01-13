@@ -6,7 +6,6 @@
             v-model="newTodo" 
             @keyup.enter="addItem(newTodo)"
         /> 
-        <!-- <button @click="addItem">OK</button> -->
     </div>
 </template>
 
@@ -21,7 +20,7 @@ export default {
     },
     methods: {
         addItem(value) {
-            this.$emit("addItem", value);
+            this.$store.commit('addItem', value)
             this.newTodo = "";
         }
     }
