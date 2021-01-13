@@ -5,7 +5,7 @@
   <todo-list-input-add></todo-list-input-add>
 
   <ul>
-    <todo-list-item v-for="todo in todos" 
+    <todo-list-item v-for="todo in sortTodos" 
       :key="todo._id" 
       :activeId="activeId"
       :todo="todo"
@@ -30,12 +30,6 @@ export default {
     TodoListSummary
   },
   
-  // mounted() {
-  //   if (localStorage.todos) {
-  //     this.todos = JSON.parse(localStorage.getItem("todos")).sort((a, b) => Number(a.isCompleted) - Number(b.isCompleted));
-  //   }
-  // },
-
   computed: {
     todos() {
       return this.$store.state.todos;
@@ -43,13 +37,16 @@ export default {
     
     activeId() {
       return this.$store.state.activeId;
+    },
+
+    sortTodos() {
+      return this.$store.getters.sortTodos;
     }
   },
 
-  // updated() {
-  //   localStorage.setItem("todos", JSON.stringify(this.todos))
-  //   this.todos.sort((a, b) => Number(a.isCompleted) - Number(b.isCompleted));
-  // },
+  updated() {
+    localStorage.setItem("todos", JSON.stringify(this.$store.state.todos))
+  },
 }
 </script>
 

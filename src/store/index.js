@@ -54,6 +54,11 @@ const store = new createStore({
     doingTodos(state) {
       return state.todos.filter((todo) => !todo.isCompleted);
     },
+
+    sortTodos(state) {
+      const sortList = [...state.todos];
+      return sortList.sort((a, b) => Number(a.isCompleted) - Number(b.isCompleted));
+    }
   },
   actions: {},
   modules: {},
