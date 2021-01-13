@@ -1,9 +1,6 @@
 <template>
     <li :class="{ completed: todo.isCompleted }">
-        <todo-list-item-checkbox 
-            :todo="todo"
-            @checkDone="checkDone"
-        ></todo-list-item-checkbox>
+        <todo-list-item-checkbox :todo="todo"></todo-list-item-checkbox>
         <todo-list-item-main-content 
             :todo="todo"
             :activeId="activeId"
@@ -45,10 +42,6 @@ export default {
 
         removeItem(_id) {
             this.$emit('removeItem', _id)
-        },
-
-        checkDone(_id) {
-            this.$emit('checkDone', _id)
         },
 
         updateItem(_id, value) {

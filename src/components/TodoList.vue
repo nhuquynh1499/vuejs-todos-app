@@ -77,15 +77,6 @@ export default {
       this.todos = this.todos.filter(item => item._id !== id)
     },
 
-    checkDone(id) {
-      this.todos = this.todos.map(item => {
-        if (item._id === id) {
-          item.isCompleted = !item.isCompleted
-        }
-        return item;
-      })
-    },
-
     updateItem(id, value) {
       this.todos = this.todos.map(item => {
         if (item._id === id) {

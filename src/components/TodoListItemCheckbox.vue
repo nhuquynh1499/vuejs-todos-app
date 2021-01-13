@@ -16,7 +16,7 @@ export default {
 
     methods: {
         checkDone(_id) {
-            this.$emit('checkDone', _id)
+            this.$store.commit('checkDone', _id)
         }
     }
 }
