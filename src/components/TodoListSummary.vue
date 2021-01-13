@@ -1,35 +1,28 @@
 <template>
 <div class="todo-list-summary">
     <p>All: {{ todos.length }}</p>
-    <p>Doing: {{ doingList.length }}</p>
-    <p>Completed: {{ completedList.length }}</p>
+    <p>Doing: {{ doingTodos.length }}</p>
+    <p>Completed: {{ completedTodos.length }}</p>
 </div>
 </template>
 
 <script>
 export default {
     name: "TodoListSummary",
-    props: {
-        todos: Array, 
-    },
-    data() {
-        return {
-            doingList: this.todos.filter((item) => !item.isCompleted),
-            completedList: this.todos.filter((item) => item.isCompleted)
-        }
-    },
 
-    beforeUpdate() {
-        this.doingList =  this.todos.filter((item) => !item.isCompleted),
-        this.completedList = this.todos.filter((item) => item.isCompleted)
-    },
+    computed: {
+        todos() {
+            return this.$store.state.todos;
+        },
 
-    watch: {
-        todos: function() {
-            this.doingList =  this.todos.filter((item) => !item.isCompleted),
-            this.completedList = this.todos.filter((item) => item.isCompleted)
-        }
-    }
+        completedTodos() {
+            return this.$store.getters.completedTodos;
+        },
+
+        doingTodos() {
+            return this.$store.getters.doingTodos;
+        },
+    },
 }
 </script>
 

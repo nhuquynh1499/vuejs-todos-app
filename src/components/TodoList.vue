@@ -1,4 +1,5 @@
 <template>
+<div class="todo-list">
   <h1 class="title">todo list</h1>
 
   <todo-list-input-add @addItem="addItem"></todo-list-input-add>
@@ -16,7 +17,8 @@
     </todo-list-item>
   </ul>
 
-  <todo-list-summary :todos="todos"></todo-list-summary>
+  <todo-list-summary></todo-list-summary>
+</div>
 </template>
 
 <script>
@@ -36,13 +38,18 @@ export default {
   data() {
     return {
       activeId: "",
-      todos: [],
     }
   },
   
-  mounted() {
-    if (localStorage.todos) {
-      this.todos = JSON.parse(localStorage.getItem("todos")).sort((a, b) => Number(a.isCompleted) - Number(b.isCompleted));
+  // mounted() {
+  //   if (localStorage.todos) {
+  //     this.todos = JSON.parse(localStorage.getItem("todos")).sort((a, b) => Number(a.isCompleted) - Number(b.isCompleted));
+  //   }
+  // },
+
+  computed: {
+    todos() {
+      return this.$store.state.todos;
     }
   },
 
@@ -92,17 +99,12 @@ export default {
 }
 </script>
 
-<style lang="scss">
-#app {
-  max-width: 70%;
-  margin: auto;
-
-  .title {
-    text-transform: uppercase;
-    text-align: center;
-    margin-top: 20px;
-    margin-bottom: 20px;
-  }
+<style lang="scss" scoped>
+.title {
+  text-transform: uppercase;
+  text-align: center;
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 
 ul {
