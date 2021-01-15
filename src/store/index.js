@@ -3,7 +3,7 @@ const shortid = require("shortid");
 
 const store = new createStore({
   state: {
-    todos: localStorage.todos ? JSON.parse(localStorage.getItem("todos")) : [],
+    todos: [],
     activeId: "",
   },
   mutations: {

@@ -29,6 +29,12 @@ export default {
     TodoListInputAdd,
     TodoListSummary
   },
+
+  mounted() {
+    if(localStorage.todos) {
+      this.$store.commit('setTodos',  JSON.parse(localStorage.getItem("todos")))
+    }
+  },
   
   computed: {
     todos() {
