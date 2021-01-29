@@ -2,12 +2,13 @@
     <div :class="{ checked: todo.isCompleted, container: true }">
         <span 
             class="checkmark" 
-            @click="checkDone(todo._id)"
+            @click="markTodoCompleted(todo.id)"
         ></span>
     </div>
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 export default {
     name: "TodoListItemCheckbox",
     props: {
@@ -15,9 +16,7 @@ export default {
     },
 
     methods: {
-        checkDone(_id) {
-            this.$store.commit('checkDone', _id)
-        }
+        ...mapActions(['markTodoCompleted']),
     }
 }
 </script>

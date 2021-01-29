@@ -1,59 +1,54 @@
 <template>
-<div class="todo-list">
-  <h1 class="title">todo list</h1>
-
-  <todo-list-input-add></todo-list-input-add>
-
-  <ul>
-    <todo-list-item v-for="todo in sortTodos" 
-      :key="todo._id" 
-      :activeId="activeId"
-      :todo="todo"
-    >
-    </todo-list-item>
-  </ul>
-
-  <todo-list-summary></todo-list-summary>
-</div>
+  <Header></Header>
+  <div class="todo-list">
+    <h1 class="title">todo list</h1>
+    <template v-if="isAuthenticated">
+      <todo-list-input-add></todo-list-input-add>
+      <ul>
+        <todo-list-item
+          v-for="todo in sortTodos"
+          :key="todo.id"
+          :todo="todo"
+        >
+        </todo-list-item>
+      </ul>
+      <todo-list-summary></todo-list-summary>
+    </template>
+    <p v-else> Vui lòng đăng nhập!!!</p>
+  </div>
 </template>
 
 <script>
+import { mapState, mapGetters, mapActions } from "vuex";
+import Header from "./layouts/Header";
 import TodoListItem from "./TodoListItem";
 import TodoListInputAdd from "./TodoListInputAdd";
-import TodoListSummary from './TodoListSummary';
+import TodoListSummary from "./TodoListSummary";
 
 export default {
   name: "TodoList",
   components: {
+    Header,
     TodoListItem,
     TodoListInputAdd,
-    TodoListSummary
+    TodoListSummary,
   },
 
-  mounted() {
-    if(localStorage.todos) {
-      this.$store.commit('setTodos',  JSON.parse(localStorage.getItem("todos")))
-    }
+  methods: {
+    ...mapActions(["getTodosList"]),
   },
-  
+
+  created() {
+    this.getTodosList();
+  },
+
   computed: {
-    todos() {
-      return this.$store.state.todos;
-    },
-    
-    activeId() {
-      return this.$store.state.activeId;
-    },
+    ...mapState(["todos"]),
+    ...mapGetters(["sortTodos", "getTodoItemById"]),
+    ...mapGetters(["isAuthenticated"]),
 
-    sortTodos() {
-      return this.$store.getters.sortTodos;
-    }
   },
-
-  updated() {
-    localStorage.setItem("todos", JSON.stringify(this.$store.state.todos))
-  },
-}
+};
 </script>
 
 <style lang="scss" scoped>
@@ -67,4 +62,10 @@ export default {
 ul {
   list-style-type: none;
 }
+
+p {
+  margin: 10px 0px;
+  text-align: center;
+}
+
 </style>

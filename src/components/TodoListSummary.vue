@@ -1,29 +1,22 @@
 <template>
 <div class="todo-list-summary">
-    <p>All: {{ todos.length }}</p>
-    <p>Doing: {{ doingTodos.length }}</p>
-    <p>Completed: {{ completedTodos.length }}</p>
+    <p>All: {{ todosCount }}</p>
+    <p>Doing: {{ doingTodosCount }}</p>
+    <p>Completed: {{ completedTodosCount }}</p>
 </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
     name: "TodoListSummary",
 
     computed: {
-        todos() {
-            return this.$store.state.todos;
-        },
-
-        completedTodos() {
-            return this.$store.getters.completedTodos;
-        },
-
-        doingTodos() {
-            return this.$store.getters.doingTodos;
-        },
+        ...mapGetters(['todosCount','completedTodosCount', 'doingTodosCount']),
     },
 }
+
 </script>
 
 <style scoped>

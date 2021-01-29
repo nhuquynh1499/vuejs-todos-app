@@ -4,15 +4,16 @@
         <todo-list-item-main-content 
             :todo="todo"
             :activeId="activeId"
+            @resetActiveId="resetActiveId"
             class="main-content"
         ></todo-list-item-main-content>
         <img 
             src="../assets/edit.svg" 
-            @click="openInputEdit(todo._id)"
+            @click="openInputEdit(todo.id)"
         />
         <img 
             src="../assets/delete.svg" 
-            @click="removeItem(todo._id)"
+            @click="removeItem(todo.id)"
         />
     </li>   
 </template>
@@ -20,13 +21,17 @@
 <script>
 import TodoListItemMainContent from "./TodoListItemMainContent";
 import TodoListItemCheckbox from "./TodoListItemCheckbox";
+import { mapActions } from 'vuex';
 
 export default {
     name: "TodoListItem",
-
+    data:  function() {
+        return {
+            activeId: "",
+        }
+    },
     props: {
         todo: Object,
-        activeId: String
     },
 
     components: {
@@ -35,12 +40,18 @@ export default {
     },
 
     methods: {
-        openInputEdit(_id) {
-            this.$store.commit('setActiveId', _id)
+        ...mapActions(['deleteTodoItem']),
+
+        openInputEdit(todoId) {
+            this.activeId = todoId;
         },
 
-        removeItem(_id) {
-            this.$store.commit('removeItem', _id)
+        resetActiveId() {
+            this.activeId = "";
+        },
+
+        removeItem(todoId) {
+            this.deleteTodoItem(todoId)
         }
     }
 }

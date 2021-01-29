@@ -10,6 +10,8 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
+
 export default {
     name: "TodoListInputAdd",
 
@@ -19,8 +21,10 @@ export default {
         }
     },
     methods: {
+        ...mapActions(['addNewTodo']),
+        
         addItem(value) {
-            this.$store.commit('addItem', value)
+            this.addNewTodo(value)
             this.newTodo = "";
         }
     }
