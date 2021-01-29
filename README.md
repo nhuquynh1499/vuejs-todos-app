@@ -1,8 +1,12 @@
 # todos-app
-
 ## Project setup
 ```
 npm install
+```
+
+### Run json-server
+```
+json-server db.json
 ```
 
 ### Compiles and hot-reloads for development
